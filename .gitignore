@@ -1,0 +1,9 @@
+# IDE Cache
+.idea
+.vscode
+
+# Node Modules
+node_modules
+
+# Test cases
+input.txt
