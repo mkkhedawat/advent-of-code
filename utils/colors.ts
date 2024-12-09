@@ -18,19 +18,31 @@ const visualize2DArray = (array: [][], { showOriginalData = false, logger = cons
         bgColorIndex: 0,
     };
 
+    Object.keys(colors).forEach((key) => {
+        const cache = showOriginalData ? colorCache : bgColorCache;
+        if (colors[key] && !cache[key]) {
+            cache[key] = colors[key];
+        }
+    });
+
+    const tempPalette = {
+        backgrounds: palette.backgrounds.filter((_, i) => !Object.values(colors).includes(palette.backgrounds[i])),
+        colors: palette.colors.filter((_, i) => !Object.values(colors).includes(palette.colors[i]))
+    }
+
     for (let i = 0; i < array.length; i++) {
         const elements: any[] = [];
         for (let j = 0; j < array[i].length; j++) {
             if (showOriginalData) {
                 if (!colorCache[array[i][j]]) {
-                    colorCache[array[i][j]] = colors[array[i][j]] || palette.colors[last.colorIndex++ % palette.colors.length];
+                    colorCache[array[i][j]] = colors[array[i][j]] || tempPalette.colors[last.colorIndex++ % tempPalette.colors.length];
                 }
                 const textColor = colorCache[array[i][j]];
                 elements.push(bgBlack(textColor(` ${array[i][j]} `)));
             }
             else {
                 if (!bgColorCache[array[i][j]]) {
-                    bgColorCache[array[i][j]] = colors[array[i][j]] || palette.backgrounds[last.bgColorIndex++ % palette.backgrounds.length];
+                    bgColorCache[array[i][j]] = colors[array[i][j]] || tempPalette.backgrounds[last.bgColorIndex++ % tempPalette.backgrounds.length];
                 }
                 elements.push(bgColorCache[array[i][j]](`  `));
             }
