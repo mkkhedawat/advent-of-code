@@ -7,3 +7,6 @@ node_modules
 
 # Test cases
 input.txt
+
+# Mac
+.DS_Store
