@@ -2,6 +2,7 @@ import * as Plot from "npm:@observablehq/plot";
 import { document } from "jsr:@ry/jupyter-helper"
 import { display } from "https://deno.land/x/display@v0.1.1/mod.ts";
 
+
 const lineGraph = (x, y, labels, { render = true }) => {
     const data = new Array(x.length).fill(0).map((f, i) => ({
         [labels.x]: x[i],
@@ -28,12 +29,7 @@ const scatterGraph = (elements: [], labels, { render = true }) => {
     return async () => await display(raw);
 }
 
-const writeSVG = async (path, svg) => {
-    await Deno.writeTextFile(path, svg);
-}
-
 export default {
     lineGraph,
     scatterGraph,
-    writeSVG
 }

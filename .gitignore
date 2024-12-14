@@ -10,3 +10,11 @@ input.txt
 
 # Mac
 .DS_Store
+
+# Tmp
+tmp/
+tmp*
+*.tmp
+
+# Python - VEnv
+virtual/
